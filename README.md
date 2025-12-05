@@ -4,13 +4,13 @@ This repository contains my Predictive Analytics exam project (PGR304), focusing
 
 The project demonstrates a complete, end-to-end workflow: from statistical diagnosis and understanding of the dataset, to advanced model selection and evaluation. The core aim is to build a robust predictive model that serves as a **baseline for identifying deviations** and supporting **root cause analysis** in complex systems.
 
-## 📁 Repository Contents
+##  Repository Contents
 
 * `Analysis.ipynb`: Jupyter notebook with the full analysis and modeling workflow.
 * `Exam.csv`: The dataset used in the analysis.
 * `PowerSystem_Analysis.pdf`: Written report summarizing methodology, results, and discussion.
 
-## 📊 Dataset (High Level)
+##  Dataset (High Level)
 
 Hourly observations with the following variables:
 
@@ -24,7 +24,7 @@ Hourly observations with the following variables:
 
 ---
 
-## 🔎 Methodological Overview
+##  Methodological Overview
 
 ### Exploratory Data Analysis (EDA)
 Summary statistics, outlier/scale checks, and visualizations (hourly + aggregated views).
@@ -45,12 +45,12 @@ Summary statistics, outlier/scale checks, and visualizations (hourly + aggregate
 
 ---
 
-## 📈 Key Results (From the report)
+##  Key Results (From the report)
 
 * VAR achieved the strongest performance on the test window (approx. MAE $\sim 725 \text{ MW}$, MAPE $\sim 2.85\%$).
 * SARIMA performed weaker on the same horizon (approx. MAE $\sim 2500 \text{ MW}$, MAPE $\sim 10\%$).
 
-## 🚀 How to Run
+##  How to Run
 
 ```bash
 # Recommended: Create a virtual environment
