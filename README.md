@@ -1,41 +1,71 @@
-# Multivariate Time Series Analysis for Predictive Analytics & Anomaly Detection Framework
+# Predictive Analytics and System Diagnostics: Time Series Analysis for Power Systems
 
-This repository presents a comprehensive analysis and forecasting framework, utilizing multivariate time series techniques. The primary goal was to model and predict energy system consumption by rigorously accounting for external drivers (like temperature and price).
+This repository contains my Predictive Analytics exam project (PGR304), focusing on time-series analysis and forecasting for power-system data.
 
-The methodology demonstrated here is **directly transferable to building robust anomaly detection systems** for financial data, such as payroll or accounting systems (Visma's domain).
+The project demonstrates a complete, end-to-end workflow: from statistical diagnosis and understanding of the dataset, to advanced model selection and evaluation. The core aim is to build a robust predictive model that serves as a **baseline for identifying deviations** and supporting **root cause analysis** in complex systems.
 
-## Core Project Relevance
+## 📁 Repository Contents
 
-The key to anomaly detection is defining "normal." This project achieves that through statistical modeling:
+* `Analysis.ipynb`: Jupyter notebook with the full analysis and modeling workflow.
+* `Exam.csv`: The dataset used in the analysis.
+* `PowerSystem_Analysis.pdf`: Written report summarizing methodology, results, and discussion.
 
-1.  **Modeling the Baseline ("Normal"):** The VAR/SARIMA models learn the normal patterns and dependencies within the data.
-2.  **Identifying Deviations (Anomalies):** The difference between the model's prediction and the actual data is the **Residual**. In the context of payroll, a significant spike in the residual represents a potential *unexplained error* or anomaly that requires flagging and investigation.
+## 📊 Dataset (High Level)
 
-##  Key Techniques Demonstrated
+Hourly observations with the following variables:
 
-### 1. Root Cause & Causality Analysis
-* **Granger Causality Testing:** Used to verify and quantify the directional influence between variables (e.g., "Does temperature statistically *cause* changes in load?").
-    * *Relevance:* This skill is crucial for Visma's request to **"forklare hvorfor det skjedde"** (explain why it happened). It moves beyond simple correlation to determine leading factors behind an observed deviation.
-
-### 2. Robust Modeling & Validation
-* **Stationarity Testing (ADF, KPSS):** Ensuring the data meets the rigorous statistical requirements for VAR/SARIMA models, demonstrating a foundational understanding of time series statistics.
-* **Multivariate Modeling (VAR):** Handling complex systems where multiple external variables affect the target, which is essential for accurate payroll forecasting (where salary is affected by hours, taxes, bonuses, etc.).
-* **Seasonal Analysis (SARIMA):** Effectively capturing complex seasonal and yearly patterns inherent in the data.
-
-### 3. Focus on Residual Analysis
-The project concludes with a detailed analysis of the model's residuals.
-* A key feature of the model is that major spikes in the residual plot are where the model fails to predict the actual value accurately—these are the **anomaly signals**.
-
-## Repository Contents
-| File Name | Description |
+| Variable | Description |
 | :--- | :--- |
-| `Analysis.ipynb` | The Jupyter Notebook containing the full end-to-end analysis, including data cleaning, testing, modeling, and results. |
-| `Exam.csv` | The raw dataset used for the analysis. |
-| `PowerSystem_Analysis.pdf` | The accompanying report providing theoretical context and conclusions. |
+| **Load_MW** (Target) | Total electricity consumption |
+| **Temp_C** | Ambient temperature |
+| **Price_DA_EUR_MWh** | Day-ahead electricity price |
+| **Solar_MW** | Solar production |
+| **Clouds_pct** | Cloud coverage percentage |
 
-## 🚀 Getting Started
-To run the analysis:
+---
 
-1.  Clone this repository.
-2.  Install the required dependencies (e.g., `pandas`, `statsmodels`, `scikit-learn`).
-3.  Open and run the `Analysis.ipynb` notebook.
+## 🔎 Methodological Overview
+
+### Exploratory Data Analysis (EDA)
+Summary statistics, outlier/scale checks, and visualizations (hourly + aggregated views).
+
+### Time-series Diagnostics and Robustness
+* **Stationarity Testing (ADF / KPSS):** Formal testing to ensure the statistical validity and **robustness** of the forecasting models.
+* Handling strong 24-hour seasonality with seasonal differencing where relevant.
+* Included preliminary work for **causal inference** to understand directional relationships between variables.
+
+### Modeling & Selection
+* **VAR (Vector Autoregression):** Utilized for multivariate forecasting, as it is effective at modeling the dynamic **interplay between multiple system components** (e.g., Load, Price, and Temp).
+* **SARIMA/SARIMAX:** Used as a strong univariate baseline/benchmark.
+* Model order/lag selection guided by **AIC/BIC** to optimize the balance between model fit and complexity.
+
+### Evaluation and Deviation Analysis
+* Forecast accuracy evaluated on a hold-out test window using MAE (Mean Absolute Error) and MAPE (Mean Absolute Percentage Error).
+* The model's **Residuals** (errors) are analyzed, laying the groundwork for identifying **unexpected events** or outliers in the system that the model could not explain.
+
+---
+
+## 📈 Key Results (From the report)
+
+* VAR achieved the strongest performance on the test window (approx. MAE $\sim 725 \text{ MW}$, MAPE $\sim 2.85\%$).
+* SARIMA performed weaker on the same horizon (approx. MAE $\sim 2500 \text{ MW}$, MAPE $\sim 10\%$).
+
+## 🚀 How to Run
+
+```bash
+# Recommended: Create a virtual environment
+python -m venv .venv
+
+# Activate environment (Windows):
+.venv\Scripts\activate
+
+# Activate environment (macOS/Linux):
+source .venv/bin/activate
+
+# Install dependencies
+pip install numpy pandas matplotlib seaborn scikit-learn statsmodels jupyter
+
+# Start Jupyter Lab
+jupyter lab
+
+# Then open Analysis.ipynb and run all cells.
